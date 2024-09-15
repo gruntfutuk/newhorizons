@@ -1,5 +1,5 @@
-import logging
 import sqlite3
+import logging
 
 # Set up logging
 logging.basicConfig(filename='employee_errors.log', level=logging.ERROR,
@@ -11,6 +11,9 @@ cursor_employees = conn_employees.cursor()
 
 # Attach the events database
 cursor_employees.execute("ATTACH DATABASE 'events.db' AS events_db")
+
+# Attach the staff database
+cursor_employees.execute("ATTACH DATABASE 'staff.db' AS staff_db")
 
 # Find employee names in events.db that do not exist in employees.db
 cursor_employees.execute("""
@@ -44,10 +47,37 @@ WHERE EXISTS (
 cursor_employees.execute(update_query)
 conn_employees.commit()
 
-# Detach the events database
+# Replace name field with staff_number in employees table
+cursor_employees.execute("ALTER TABLE employees ADD COLUMN staff_number INTEGER")
+cursor_employees.execute("""
+UPDATE employees
+SET staff_number = (
+    SELECT COALESCE(staff_db.staff.id, 999)
+    FROM staff_db.staff
+    WHERE staff_db.staff.name = employees.name
+)
+""")
+cursor_employees.execute("ALTER TABLE employees DROP COLUMN name")
+
+# Replace name field with staff_number in events table
+cursor_employees.execute("ALTER TABLE events_db.events ADD COLUMN staff_number INTEGER")
+cursor_employees.execute("""
+UPDATE events_db.events
+SET staff_number = (
+    SELECT COALESCE(staff_db.staff.id, 999)
+    FROM staff_db.staff
+    WHERE staff_db.staff.name = events_db.events.name
+)
+""")
+cursor_employees.execute("ALTER TABLE events_db.events DROP COLUMN name")
+
+conn_employees.commit()
+
+# Detach the events and staff databases
 cursor_employees.execute("DETACH DATABASE events_db")
+cursor_employees.execute("DETACH DATABASE staff_db")
 
 # Close the connection
 conn_employees.close()
 
-print("Points updated successfully.")
+print("Points updated and staff_number fields added successfully.")
