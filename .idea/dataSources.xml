@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="employees" uuid="9f3b9e65-7aff-4a59-a8f8-acd2963107f3">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>a080e0a5-aad4-43ae-a71e-a63330eecb10</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\windo\PycharmProjects\newhorizons\employees.db</jdbc-url>
@@ -14,7 +14,7 @@
       </libraries>
     </data-source>
     <data-source source="LOCAL" name="events" uuid="cb98610f-73ee-4695-8a07-988203d82681">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>a080e0a5-aad4-43ae-a71e-a63330eecb10</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\windo\PycharmProjects\newhorizons\events.db</jdbc-url>
@@ -26,7 +26,7 @@
       </libraries>
     </data-source>
     <data-source source="LOCAL" name="staff" uuid="157827ae-ccbe-4d3c-a716-6bb93abc5469">
-      <driver-ref>1d43837e-55fb-4e85-9c0d-0cbaf69dd93c</driver-ref>
+      <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\windo\PycharmProjects\newhorizons\staff.db</jdbc-url>
